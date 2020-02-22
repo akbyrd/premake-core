@@ -1,14 +1,18 @@
 [x] code-workspace paths
-[ ] C/C++ language support
-[ ] C/C++ settings
+[ ] Implement C/C++ support
+[ ]   Language support
+[ ]   Ouptut project files
+[ ]   Are built-in compiler defines handled by the browsing engine?
+[ ]   Extension suggestion
+[ ]   .code-workspace
+[ ]   settings.json
+[ ]   c_cpp_properties.json
+[ ]   launch.json
+[ ]   tasks.json
+[ ] Decide which languages to support
+[ ] Language support extensibility
 [ ] Test clean functionality
 [ ] Support --to
-[ ] Language support extensibility
-[ ] settings.json
-[ ] launch.json
-[ ] tasks.jsoon
-[ ] Language support
-[ ] Extension suggestions
 [ ] Prepare to merge
 [ ]   Naming convention
 [ ]   Use call arrays

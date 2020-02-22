@@ -49,7 +49,7 @@
 		p.w('')
 	end
 
-	-- TODO: Deal with trailing commas
+	-- TODO: Deal with trailing commas (write to table, sort, then join)
 	function m.generateProject(prj)
 		p.push('{')
 		if project.isc(prj) or project.iscpp(prj) then
@@ -86,7 +86,6 @@
 				p.warn('Unhandled cdialect: %s', cfg.cdialect)
 			end
 
-			-- TODO: Get built-in compiler defines?
 			local defines = cfg.defines
 			if #defines > 0 then
 				m.cppOptionArray('defines')
@@ -96,8 +95,19 @@
 				p.pop('],')
 			end
 
-			m.cppOption('forcedInclude',     'null')
-			m.cppOption('includePath',       'null')
+			-- TODO: User extensibility
+			m.cppOption('forcedInclude', 'null')
+
+			-- TODO: Need system includes if we don't have compilerPath
+			local includeDirs = cfg.includeDirs
+			if #includeDirs > 0 then
+				m.cppOptionArray('includePath')
+				for i = 1, #includeDirs do
+					p.w('"%s",', m.relativePath(m.projectPath(prj), includeDirs[i]))
+				end
+				p.pop('],')
+			end
+
 			m.cppOption('intelliSenseMode',  'null')
 			m.cppOption('macFrameworkPath',  'null')
 			m.cppOption('systemIncludePath', 'null')
