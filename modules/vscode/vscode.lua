@@ -25,18 +25,18 @@
 	end
 
 	function m.generateWorkspace(wks)
-		p.push("{")
-		p.push("\"folders\": [")
+		p.push('{')
+		p.push('"folders": [')
 		local tr = p.workspace.grouptree(wks)
 		tree.traverse(tr, {
 			onleaf = function(n)
 				local prj = n.project
 				local path = m.relativePath(m.workspacePath(wks), m.projectScriptDir(prj))
-				p.w("{ \"path\": \"%s\" },", path)
+				p.w('{ "path": "%s" },', path)
 			end,
 		})
-		p.pop("]")
-		p.pop("}")
+		p.pop(']')
+		p.pop('}')
 	end
 
 	function m.generateProject(prj)

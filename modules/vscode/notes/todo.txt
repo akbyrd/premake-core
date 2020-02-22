@@ -9,4 +9,6 @@
 [ ] tasks.jsoon
 [ ] Language support
 [ ] Extension suggestions
-[ ] Naming convention
+[ ] Prepare to merge
+[ ]   Naming convention
+[ ]   Use call arrays
