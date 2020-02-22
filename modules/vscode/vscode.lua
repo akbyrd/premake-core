@@ -2,7 +2,10 @@
 -- vscode.lua
 --
 
+-- NOTE: modules\vscode\tests\run-tests.bat
+
 	local m = premake.modules.vscode
+	local d = premake.modules.vscode.debug
 
 	local p = premake
 	local tree = premake.tree
