@@ -1,3 +1,9 @@
+Premake
+-------
+Action callbacks: https://github.com/premake/premake-core/wiki/newaction
+	Plus onInitialize, toolset, targetos
+
+
 Lua
 ---
 print("args", select("#", ...))

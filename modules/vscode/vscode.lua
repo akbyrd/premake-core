@@ -2,15 +2,11 @@
 -- vscode.lua
 --
 
--- NOTE: modules\vscode\tests\run-tests.bat
-
 	local m = premake.modules.vscode
 	local d = premake.modules.vscode.debug
 
 	local p = premake
 	local tree = premake.tree
-
-	m._VERSION = "1.0.0"
 
 	function m.workspacePath(wks)
 		return premake.filename(wks, m.workspaceExt)

@@ -1,6 +1,9 @@
 [x] code-workspace paths
 [ ] C/C++ language support
 [ ] C/C++ settings
+[ ] Test clean functionality
+[ ] Support --to
+[ ] Language support extensibility
 [ ] settings.json
 [ ] launch.json
 [ ] tasks.jsoon
