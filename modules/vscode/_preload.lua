@@ -5,9 +5,15 @@
 -- Created: 2020/02/19
 --
 
+	premake.modules.vscode = {};
+	local m = premake.modules.vscode
+
 	local p = premake
 
-	print('vscode preloaded')
+	m.workspaceExt = ".code-workspace"
+	m.projectName = "settings"
+	m.projectExt = ".json"
+	m.projectFilename = m.projectName .. m.projectExt
 
 	newaction {
 		trigger     = "vscode",
@@ -34,7 +40,7 @@
 		onWorkspace = function(wks)
 			printf("onWorkspace '%s'", wks.name)
 			local m = p.modules.vscode
-			p.generate(wks, ".wks.lua", m.generateWorkspace)
+			p.generate(wks, m.workspaceExt, m.generateWorkspace)
 		end,
 
 		onCleanWorkspace = function(wks) printf("onCleanWorkspace '%s'", wks.name) end,
@@ -43,7 +49,8 @@
 		onProject = function(prj)
 			printf("onProject '%s'", prj.name)
 			local m = p.modules.vscode
-			p.generate(prj, ".prj.lua", m.generateProject)
+			-- TODO: Should go to project/.vscode/settings.json
+			p.generate(prj, m.projectFilename, m.generateProject)
 		end,
 
 		onCleanProject = function(prj) printf("onCleanProject '%s'", prj.name) end,
