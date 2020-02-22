@@ -1,0 +1,9 @@
+[x] code-workspace paths
+[ ] C/C++ language support
+[ ] C/C++ settings
+[ ] settings.json
+[ ] launch.json
+[ ] tasks.jsoon
+[ ] Language support
+[ ] Extension suggestions
+[ ] Naming convention

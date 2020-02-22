@@ -1,0 +1,847 @@
+name: vscode-workspace
+class: {
+  new: function: 00B2BEC0
+  parent: {
+    new: function: 00B1D890
+    eachRule: function: 00B1DE50
+    validate: function: 00AC60F0
+    name: global
+    getRule: function: 00B1DF10
+    blocks: {}
+    getWorkspace: function: 00B1D8D0
+    getRuleForFile: function: 00B2BB18
+    compiled: false
+    eachWorkspace: function: 00B1DE90
+    containedClasses: {
+      2: {
+        name: rule
+        setVars: function: 00B4E908
+        blocks: {}
+        preparePathVars: function: 00B44BB0
+        containedClasses: {}
+        getPropertyField: function: 00B449F0
+        validate: function: 00AC5AC0
+        createPathVars: function: 00B44AF0
+        new: function: 00B4E710
+        compiled: false
+        getProperty: function: 00B44A70
+        eachProperty: function: 00B44CF0
+        pluralName: rules
+        prepareEnvironment: function: 00B44BF0
+        bake: function: 00B4BA58
+        createEnvironment: function: 00B447B0
+      }
+    }
+    pluralName: globals
+    getSolution: function: 00B2B608
+    bake: function: 00B1D9D0
+    eachSolution: function: 00B2B6E0
+  }
+  blocks: {}
+  getproject: function: 00B1E010
+  findproject: function: 00B1DC10
+  alias: solution
+  grouptree: function: 00B2C2B0
+  containedClasses: {
+    1: {
+      containedClasses: {}
+      compiled: false
+      new: function: 00B2BD10
+      name: group
+      pluralName: groups
+      blocks: {}
+      placeholder: true
+    }
+    2: {
+      new: function: 00B4C280
+      isnative: function: 029256F0
+      isdotnet: function: 00B437B0
+      blocks: {}
+      name: project
+      iscsharp: function: 00B439B0
+      isc: function: 00B43C30
+      findClosestMatch: function: 00B4CEE0
+      extraScopes: {
+        1: config
+      }
+      isd: function: 0287EBD8
+      systemversion: function: 00B43D70
+      getsourcetree: function: 00B4D168
+      containedClasses: {}
+      iscpp: function: 00B439F0
+      getrelative: function: 00B4D318
+      validate: function: 00AC5D48
+      eachconfig: function: 00B43930
+      getfirstconfig: function: 00B43CF0
+      isfsharp: function: 00B43DB0
+      hasConfig: function: 00B43B30
+      getdependencies: function: 00B4CD78
+      compiled: false
+      getconfig: function: 00B43E70
+      hasfile: function: 00B43870
+      pluralName: projects
+      mapconfig: function: 00B43D30
+      bake: function: 0276E588
+      getvpath: function: 00B43C70
+    }
+  }
+  getrelative: function: 00B2C028
+  validate: function: 00AC5D90
+  eachconfig: function: 00B1DFD0
+  eachproject: function: 00B1DA10
+  compiled: false
+  pluralName: workspaces
+  name: workspace
+  bake: function: 0276E538
+  hasProject: function: 00B1D950
+}
+parent: {
+  name: root
+  filename: root
+  current: {
+    _basedir: d:/dev/third party/premake-core
+    _origin: {
+      name: root
+      filename: root
+      script: D:/Dev/Third Party/premake-core/src/base/premake.lua
+      external: false
+      blocks: {
+        1: {
+          exceptionhandling: Default
+          rtti: Default
+          editorintegration: false
+          language: C++
+          _criteria: {
+            terms: {}
+            data: premake.criteria: 00B1A2E0
+            patterns: {}
+          }
+          nugetsource: https://api.nuget.org/v3/index.json
+          clr: Off
+          symbols: Default
+          characterset: Default
+        }
+        2: {
+          targetprefix: lib
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .so
+          _criteria: {
+            terms: {
+              1: kind:SharedLib
+            }
+            data: premake.criteria: 00B1A440
+            patterns: {
+              1: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        3: {
+          targetprefix: lib
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .a
+          _criteria: {
+            terms: {
+              1: kind:StaticLib
+            }
+            data: premake.criteria: 00B1A338
+            patterns: {
+              1: {
+                1: {
+                  1: staticlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        4: {
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .app
+          _criteria: {
+            terms: {
+              1: system:darwin
+              2: kind:WindowedApp
+            }
+            data: premake.criteria: 00B1A4F0
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: windowedapp
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        5: {
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .dylib
+          _criteria: {
+            terms: {
+              1: system:darwin
+              2: kind:SharedLib
+            }
+            data: premake.criteria: 00B1A860
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        6: {
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .bundle
+          _criteria: {
+            terms: {
+              1: system:darwin
+              2: kind:SharedLib
+              3: sharedlibtype:OSXBundle
+            }
+            data: premake.criteria: 00B1A910
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+              3: {
+                1: {
+                  1: osxbundle
+                  2: sharedlibtype
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        7: {
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .framework
+          _criteria: {
+            terms: {
+              1: system:darwin
+              2: kind:SharedLib
+              3: sharedlibtype:OSXFramework
+            }
+            data: premake.criteria: 00B1AD88
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+              3: {
+                1: {
+                  1: osxframework
+                  2: sharedlibtype
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        8: {
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .xctest
+          _criteria: {
+            terms: {
+              1: system:darwin
+              2: kind:SharedLib
+              3: sharedlibtype:XCTest
+            }
+            data: premake.criteria: 00B1ABD0
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+              3: {
+                1: {
+                  1: xctest
+                  2: sharedlibtype
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        9: {
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .exe
+          _criteria: {
+            terms: {
+              1: system:Windows or language:C# or language:F#
+              2: kind:ConsoleApp or WindowedApp
+            }
+            data: premake.criteria: 00B1AC80
+            patterns: {
+              1: {
+                1: {
+                  1: windows
+                  2: system
+                  3: true
+                  4: false
+                }
+                2: {
+                  1: c#
+                  2: language
+                  3: true
+                  4: false
+                }
+                3: {
+                  1: f#
+                  2: language
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: consoleapp
+                  2: kind
+                  3: true
+                  4: false
+                }
+                2: {
+                  1: windowedapp
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        10: {
+          implibextension: .lib
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .dll
+          _criteria: {
+            terms: {
+              1: system:Windows
+              2: kind:SharedLib
+            }
+            data: premake.criteria: 00B1ACD8
+            patterns: {
+              1: {
+                1: {
+                  1: windows
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        11: {
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .lib
+          _criteria: {
+            terms: {
+              1: system:Windows
+              2: kind:StaticLib
+            }
+            data: premake.criteria: 00B1AF40
+            patterns: {
+              1: {
+                1: {
+                  1: windows
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: staticlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        12: {
+          implibextension: .dll
+          targetprefix:
+          _basedir: d:/dev/third party/premake-core/src
+          targetextension: .dll
+          _criteria: {
+            terms: {
+              1: language:C# or language:F#
+              2: kind:SharedLib
+            }
+            data: premake.criteria: 00B1ADE0
+            patterns: {
+              1: {
+                1: {
+                  1: c#
+                  2: language
+                  3: true
+                  4: false
+                }
+                2: {
+                  1: f#
+                  2: language
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        13: {
+          pic: On
+          _basedir: d:/dev/third party/premake-core/src
+          _criteria: {
+            terms: {
+              1: kind:SharedLib
+              2: system:not Windows
+            }
+            data: premake.criteria: 00B1AB20
+            patterns: {
+              1: {
+                1: {
+                  1: sharedlib
+                  2: kind
+                  3: true
+                  4: false
+                }
+              }
+              2: {
+                1: {
+                  1: windows
+                  2: system
+                  3: false
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        14: {
+          toolset: clang
+          _basedir: d:/dev/third party/premake-core/src
+          _criteria: {
+            terms: {
+              1: system:darwin
+            }
+            data: premake.criteria: 00B1AE90
+            patterns: {
+              1: {
+                1: {
+                  1: darwin
+                  2: system
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        15: {
+          architecture: x86_64
+          _basedir: d:/dev/third party/premake-core/src
+          _criteria: {
+            terms: {
+              1: platforms:Win64
+            }
+            data: premake.criteria: 00B1AEE8
+            patterns: {
+              1: {
+                1: {
+                  1: win64
+                  2: platforms
+                  3: true
+                  4: false
+                }
+              }
+            }
+          }
+        }
+        16: {
+          _basedir: d:/dev/third party/premake-core/src
+          _criteria: {
+            terms: {}
+            data: premake.criteria: 00B1AF98
+            patterns: {}
+          }
+        }
+      }
+      rules: {}
+      _isBaked: true
+      compiled: false
+      workspaces: {
+      }
+      basedir: D:/Dev/Third Party/premake-core/src/base
+    }
+    _criteria: {
+      terms: {}
+      data: premake.criteria: 0284A5F8
+      patterns: {}
+    }
+  }
+  script: D:/Dev/Third Party/premake-core/src/base/premake.lua
+  external: false
+  terms: {}
+  rules: {}
+  _isBaked: true
+  compiled: false
+  basedir: D:/Dev/Third Party/premake-core/src/base
+  environ: {}
+  _basedir: D:/Dev/Third Party/premake-core
+}
+external: false
+blocks: {
+  1: {
+    configurations: {
+      1: Debug
+      Debug: Debug
+    }
+    filename: vscode-workspace
+    basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+    _origin: {
+      blocks: {
+      }
+      compiled: true
+    }
+    _criteria: {
+      terms: {}
+      data: premake.criteria: 0284A4F0
+      patterns: {}
+    }
+  }
+}
+projects: {
+  1: {
+    configmap: {}
+    configurations: {
+      1: Debug
+      Debug: Debug
+    }
+    group:
+    nuget: {}
+    environ: {
+    }
+    buildcustomizations: {}
+    platforms: {}
+    kind: ConsoleApp
+    language: C++
+    compiled: false
+    system: windows
+    _basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+    name: vscode-project
+    configs: {
+      Debug: {
+        name: Debug
+        basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+        files: {
+          1: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+          D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+        }
+        filename: vscode-project
+        uuid: 8D5B4895-7929-3C9B-62BD-ACC14E2A1800
+        action: vscode
+        terms: {
+          host: {
+            1: windows
+            2: win32
+          }
+          options: {
+            1: scripts=modules
+            2: file=modules\vscode\tests\premake5.lua
+          }
+          action: vscode
+          tags: {}
+          configurations: debug
+          _action: vscode
+          language: c++
+          kind: consoleapp
+        }
+        rules: {}
+        longname: Debug
+        nugetsource: https://api.nuget.org/v3/index.json
+        shortname: debug
+        xcodesystemcapabilities: {}
+        environ: {
+        }
+        linktarget: {
+          name: vscode-project.exe
+          directory: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug
+          relpath: bin/Debug/vscode-project.exe
+          basename: vscode-project
+          extension: .exe
+          prefix:
+          suffix:
+          fullpath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug/vscode-project.exe
+          bundlepath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug
+          abspath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug/vscode-project.exe
+          bundlename:
+        }
+        platforms: {}
+        _cfgset: {
+          blocks: {
+            6: {
+              uuid: 8D5B4895-7929-3C9B-62BD-ACC14E2A1800
+              files: {
+                1: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+                D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+              }
+              filename: vscode-project
+              _origin: {
+                blocks: {
+                }
+                compiled: true
+              }
+              basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+              kind: ConsoleApp
+              language: C++
+              _criteria: {
+                terms: {}
+                data: premake.criteria: 0284A6A8
+                patterns: {}
+              }
+            }
+          }
+          compiled: true
+        }
+        buildcustomizations: {}
+        configurations: {
+          1: Debug
+          Debug: Debug
+        }
+        targetextension: .exe
+        buildtarget: {
+          name: vscode-project.exe
+          directory: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug
+          relpath: bin/Debug/vscode-project.exe
+          basename: vscode-project
+          extension: .exe
+          prefix:
+          suffix:
+          fullpath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug/vscode-project.exe
+          bundlepath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug
+          abspath: D:/Dev/Third Party/premake-core/modules/vscode/tests/bin/Debug/vscode-project.exe
+          bundlename:
+        }
+        objdir: D:/Dev/Third Party/premake-core/modules/vscode/tests/obj
+        language: C++
+        kind: ConsoleApp
+        location: D:/Dev/Third Party/premake-core/modules/vscode/tests
+        buildcfg: Debug
+        tags: {}
+        system: windows
+        _basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+      }
+    }
+    external: false
+    terms: {
+      action: vscode
+      tags: {}
+      _action: vscode
+      kind: consoleapp
+    }
+    rules: {}
+    uuid: 8D5B4895-7929-3C9B-62BD-ACC14E2A1800
+    xcodesystemcapabilities: {}
+    filename: vscode-project
+    script: D:/Dev/Third Party/premake-core/modules/vscode/tests/premake5.lua
+    _: {
+      files: {
+        1: {
+          configs: {
+            table: 02859E28: {
+              terms: {
+                files: d:/dev/third party/premake-core/modules/vscode/tests/main.cpp
+                action: vscode
+                configurations: debug
+                language: c++
+                tags: {}
+                _action: vscode
+                kind: consoleapp
+              }
+              flags: {}
+              vpath: main.cpp
+              sequence: 0
+              _basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+              environ: {
+              }
+              abspath: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+              _cfgset: {
+                blocks: {}
+                compiled: true
+              }
+            }
+          }
+          terms: {
+            files: d:/dev/third party/premake-core/modules/vscode/tests/main.cpp
+            action: vscode
+            tags: {}
+            _action: vscode
+            kind: consoleapp
+          }
+          order: 1
+          sequence: 0
+          abspath: D:/Dev/Third Party/premake-core/modules/vscode/tests/main.cpp
+          environ: {
+          }
+          _basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+          _cfgset: {
+            blocks: {}
+            compiled: true
+          }
+        }
+      }
+    }
+    nugetsource: https://api.nuget.org/v3/index.json
+    blocks: {
+    }
+    location: D:/Dev/Third Party/premake-core/modules/vscode/tests
+    _isBaked: true
+    basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+    _cfglist: {
+      1: {
+        1: Debug
+      }
+    }
+    vpaths: {}
+    tags: {}
+  }
+}
+_isBaked: true
+environ: {
+}
+platforms: {}
+groups: {}
+script: D:/Dev/Third Party/premake-core/modules/vscode/tests/premake5.lua
+configs: {
+  1: {
+    name: Debug
+    shortname: debug
+    action: vscode
+    tags: {}
+    longname: Debug
+    _basedir: D:/Dev/Third Party/premake-core
+    buildcfg: Debug
+    terms: {
+      action: vscode
+      configurations: debug
+      tags: {}
+      _action: vscode
+    }
+    environ: {
+    }
+    system: windows
+    _cfgset: {
+      blocks: {
+      }
+      compiled: true
+    }
+  }
+}
+compiled: false
+configurations: {
+  1: Debug
+  Debug: Debug
+}
+location: D:/Dev/Third Party/premake-core/modules/vscode/tests
+basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
+terms: {
+  action: vscode
+  _action: vscode
+}
+system: windows
+_basedir: D:/Dev/Third Party/premake-core/modules/vscode/tests
