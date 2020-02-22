@@ -9,6 +9,7 @@
 [ ]   c_cpp_properties.json
 [ ]   launch.json
 [ ]   tasks.json
+[ ]   Validate supported vscode-cpptools version
 [ ] Decide which languages to support
 [ ] Language support extensibility
 [ ] Test clean functionality
@@ -16,3 +17,5 @@
 [ ] Prepare to merge
 [ ]   Naming convention
 [ ]   Use call arrays
+[ ]   Consider making premake-vscode mappings table based
+[ ]   Use API values for comparisons (e.g. premake.X86_64)

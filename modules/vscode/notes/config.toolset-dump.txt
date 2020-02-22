@@ -1,0 +1,136 @@
+getLibraryDirectories: function: 011ABCA0
+linkerFlags: {
+  symbols: {
+    On: /DEBUG
+  }
+  flags: {
+    OmitDefaultLibrary: /NODEFAULTLIB
+    NoManifest: /MANIFEST:NO
+    LinkTimeOptimization: /GL
+    NoIncrementalLink: /INCREMENTAL:NO
+    FatalLinkWarnings: /WX
+  }
+  kind: {
+    SharedLib: /DLL
+  }
+}
+librarianFlags: {
+  flags: {
+    FatalLinkWarnings: /WX
+  }
+}
+cflags: {}
+getrunpathdirs: function: 011B5428
+getcxxflags: function: 011AB988
+getLibraryExtensions: function: 011B51A8
+cxxflags: {
+  exceptionhandling: {
+    Default: /EHsc
+    On: /EHsc
+    SEH: /EHa
+  }
+  rtti: {
+    Off: /GR-
+  }
+}
+getlinks: function: 011ABC10
+getwarnings: function: 00E0E710
+getmakesettings: function: 011B5228
+getundefines: function: 011B5168
+getdefines: function: 00E6FD08
+getldflags: function: 00DC0CD8
+getcflags: function: 011AB7D8
+defines: {
+  characterset: {
+    MBCS: /D"_MBCS"
+    Default: {
+      1: /D"_UNICODE"
+      2: /D"UNICODE"
+    }
+    ASCII: {}
+    Unicode: {
+      1: /D"_UNICODE"
+      2: /D"UNICODE"
+    }
+  }
+}
+getincludedirs: function: 011ABE08
+getforceincludes: function: 011ABBC8
+getcppflags: function: 011B5128
+shared: {
+  omitframepointer: {
+    On: /Oy
+  }
+  unsignedchar: {
+    On: /J
+  }
+  floatingpointexceptions: {
+    On: /fp:except
+    Off: /fp:except-
+  }
+  clr: {
+    Unsafe: /clr
+    Safe: /clr:safe
+    On: /clr
+    Pure: /clr:pure
+  }
+  vectorextensions: {
+    SSSE3: /arch:SSE2
+    SSE4.1: /arch:SSE2
+    SSE: /arch:SSE
+    AVX2: /arch:AVX2
+    SSE3: /arch:SSE2
+    SSE2: /arch:SSE2
+    AVX: /arch:AVX
+  }
+  functionlevellinking: {
+    On: /Gy
+    Off: /Gy-
+  }
+  stringpooling: {
+    On: /GF
+    Off: /GF-
+  }
+  staticruntime: {
+    _: function: 011AB280
+    Default: function: 011AB2C8
+    On: function: 011AB508
+    Off: function: 011AB940
+  }
+  floatingpoint: {
+    Strict: /fp:strict
+    Fast: /fp:fast
+  }
+  warnings: {
+    Extra: /W4
+    Off: /W0
+    High: /W4
+  }
+  optimize: {
+    Off: /Od
+    Full: /Ox
+    Size: /O1
+    Debug: /Od
+    On: /Ot
+    Speed: /O2
+  }
+  symbols: {
+    On: /Z7
+  }
+  flags: {
+    OmitDefaultLibrary: /Zl
+    NoMinimalRebuild: /Gm-
+    FatalCompileWarnings: /WX
+    MultiProcessorCompile: /MP
+  }
+  intrinsics: {
+    On: /Oi
+  }
+  callingconvention: {
+    VectorCall: /Gv
+    StdCall: /Gz
+    FastCall: /Gr
+    Cdecl: /Gd
+  }
+}
+gettoolname: function: 011B4A28

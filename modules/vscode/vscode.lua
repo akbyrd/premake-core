@@ -108,7 +108,27 @@
 				p.pop('],')
 			end
 
-			m.cppOption('intelliSenseMode',  'null')
+			local vtoolset
+			if     cfg.toolset == nil     then -- Emit nothing
+			elseif cfg.toolset:startswith('clang') then vtoolset = 'clang'
+			elseif cfg.toolset:startswith('gcc')   then vtoolset = 'gcc'
+			elseif cfg.toolset:startswith('msc')   then vtoolset = 'msvc'
+			else
+				p.warn('Unhandled toolset: %s', cfg.toolset)
+			end
+
+			local varchitecture
+			if     cfg.architecture == nil      then -- Emit nothing
+			elseif cfg.architecture == 'x86'    then varchitecture = 'x86'
+			elseif cfg.architecture == 'x86_64' then varchitecture = 'x64'
+			else
+				p.warn('Unhandled architecture: %s', cfg.architecture)
+			end
+
+			if vtoolset and varchitecture then
+				m.cppOption('intelliSenseMode', string.format('"%s-%s"', vtoolset, varchitecture))
+			end
+
 			m.cppOption('macFrameworkPath',  'null')
 			m.cppOption('systemIncludePath', 'null')
 			m.cppOption('windowsSdkVersion', 'null')

@@ -2,6 +2,7 @@ Premake
 -------
 Action callbacks: https://github.com/premake/premake-core/wiki/newaction
 	Plus onInitialize, toolset, targetos
+config.toolset is a goldmine. Honestly kind of looks like I could get nearly everything from there
 
 
 Lua
