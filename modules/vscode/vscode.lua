@@ -129,7 +129,14 @@
 				m.cppOption('intelliSenseMode', string.format('"%s-%s"', vtoolset, varchitecture))
 			end
 
-			m.cppOption('macFrameworkPath',  'null')
+			if #cfg.frameworkdirs > 0 then
+				m.cppOptionArray('macFrameworkPath')
+				for i = 1, #cfg.frameworkdirs do
+					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.frameworkdirs[i]))
+				end
+				p.pop('],')
+			end
+
 			m.cppOption('systemIncludePath', 'null')
 			m.cppOption('windowsSdkVersion', 'null')
 		end
