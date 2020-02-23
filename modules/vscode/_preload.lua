@@ -10,7 +10,7 @@
 
 	local p = premake
 
-	m._VERSION = "1.0.0"
+	m._VERSION = p._VERSION
 	m.workspaceExt = ".code-workspace"
 	m.projectName = "settings"
 	m.projectExt = ".json"

@@ -2,12 +2,13 @@
 [ ] Implement C/C++ support
 [ ]   Are built-in compiler defines handled by the browsing engine?
 [ ]   Extension suggestion
-[ ]   .code-workspace
+[x]   .code-workspace
 [ ]   settings.json
 [ ]   c_cpp_properties.json
 [ ]   launch.json
 [ ]   tasks.json
 [ ]   Validate supported vscode-cpptools version
+[ ]   Consider using the existing exporters
 [ ] Decide which languages to support
 [ ] Language support extensibility
 [ ] Test clean functionality

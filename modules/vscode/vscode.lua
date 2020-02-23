@@ -142,7 +142,18 @@
 
 			-- TODO: Need system includes if we don't have compilerPath
 			m.cppOption('systemIncludePath', 'null')
-			m.cppOption('windowsSdkVersion', 'null')
+
+			local minsystemversion
+			if _ACTION:startswith('vs') then
+				local vstudio = require('vstudio')
+				minsystemversion = vstudio.vc2010.targetPlatformVersion(prj)
+			end
+			if not minsystemversion then
+				minsystemversion = project.systemversion(prj)
+			end
+			if minsystemversion then
+				m.cppOption('windowsSdkVersion', string.format('"%s"', minsystemversion))
+			end
 		end
 		p.pop('}')
 		p.w('')
