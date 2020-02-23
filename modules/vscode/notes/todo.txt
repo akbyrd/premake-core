@@ -1,7 +1,5 @@
 [x] code-workspace paths
 [ ] Implement C/C++ support
-[ ]   Language support
-[ ]   Ouptut project files
 [ ]   Are built-in compiler defines handled by the browsing engine?
 [ ]   Extension suggestion
 [ ]   .code-workspace

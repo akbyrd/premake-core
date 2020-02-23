@@ -21,6 +21,7 @@
 		return prj.basedir
 	end
 
+	-- TODO: Why don't project and workspace.getrelative work?
 	function m.relativePath(from, to)
 		return path.getrelative(path.getdirectory(from), to)
 	end
@@ -86,11 +87,10 @@
 				p.warn('Unhandled cdialect: %s', cfg.cdialect)
 			end
 
-			local defines = cfg.defines
-			if #defines > 0 then
+			if #cfg.defines > 0 then
 				m.cppOptionArray('defines')
-				for i = 1, #defines do
-					p.w('"%s",', defines[i])
+				for i = 1, #cfg.defines do
+					p.w('"%s",', cfg.defines[i])
 				end
 				p.pop('],')
 			end
@@ -99,11 +99,10 @@
 			m.cppOption('forcedInclude', 'null')
 
 			-- TODO: Need system includes if we don't have compilerPath
-			local includeDirs = cfg.includeDirs
-			if #includeDirs > 0 then
+			if #cfg.includeDirs > 0 then
 				m.cppOptionArray('includePath')
-				for i = 1, #includeDirs do
-					p.w('"%s",', m.relativePath(m.projectPath(prj), includeDirs[i]))
+				for i = 1, #cfg.includeDirs do
+					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.includeDirs[i]))
 				end
 				p.pop('],')
 			end
