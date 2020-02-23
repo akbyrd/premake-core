@@ -1,21 +1,19 @@
 [ ] Implement C/C++ support
-[ ]   .code-workspace
+[x]   .code-workspace
 [x]     paths
 [x]     files.exclude
 [x]       --to directory
-[ ]     search.exclude
-[ ]   settings.json
-[x]     C_Cpp.default settings
+[x]   settings.json
+[ ]     C_Cpp.default settings
 [x]     files.exclude
 [x]       Intermediate dirs
 [x]       Output dirs
-[ ]   c_cpp_properties.json
 [ ]   launch.json
 [ ]   tasks.json
 [ ]   Validate supported vscode-cpptools version
-[ ]   Consider using the existing exporters
 [ ]   Extension suggestion
 [ ]   Refactor
+[ ]     Consider using the existing exporters
 [ ]     Write settings to a table hierarchy
 [ ]     Add table metadata: name, type (array or object)
 [ ]     Iterate table hierarchy to emit file (push, pop, comma handling)
@@ -23,6 +21,11 @@
 [ ]     Use call arrays
 [ ]     Use API values for comparisons (e.g. premake.X86_64)
 [ ]     Consider making mappings table based
+[ ]   Extensibility
+[ ]     code-workspace
+[ ]     settings.json
+[ ]     tasks.json
+[ ]     launch.json
 [ ] Option to choose configuration
 [ ] Option to specify secondary action
 [ ] Decide which languages to support

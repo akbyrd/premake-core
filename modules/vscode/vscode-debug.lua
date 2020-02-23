@@ -1,6 +1,9 @@
 premake.modules.vscode.debug = {};
 local d = premake.modules.vscode.debug
 
+-- TODO: This isn't being loaded
+print('vscode-debug loaded')
+
 function table.print(t, recurse, depth, visited)
 	local depth = depth or 0
 	local indent = string.rep("  ", depth) -- TODO: Use tab

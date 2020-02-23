@@ -4,6 +4,8 @@ Action callbacks: https://github.com/premake/premake-core/wiki/newaction
 	Plus onInitialize, toolset, targetos
 config.toolset is a goldmine. Honestly kind of looks like I could get nearly everything from there
 project.location does not appear to be valid from generateProject
+BUG: objdir, targetdir, buildtarget.directory aren't baked on prj (which is the 'default config')
+BUG: targetdir isn't baked on cfg. Only present if user-specified
 
 
 Lua

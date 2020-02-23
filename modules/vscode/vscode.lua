@@ -51,8 +51,6 @@
 		m.optionTable('settings')
 		m.optionTable('files.exclude')
 			local scriptDir = path.getdirectory(wks.script)
-			print('wks.location', wks.location)
-			print('scriptDir', scriptDir)
 			if wks.location ~= scriptDir then
 				p.w('"%s": true,', '.')
 			end
@@ -63,7 +61,6 @@
 		p.outln('')
 	end
 
-	-- TODO: Deal with trailing commas (write to table, sort, then join)
 	function m.generateProject(prj)
 		-- TODO: Does vscode suport multiple configurations outside of tasks?
 		-- TODO: If not, add a way to choose the configuration
@@ -172,11 +169,7 @@
 		-- TODO: files.exclude doesn't work when a project outputs to a folder outside of itself (e.g.
 		-- luasocket outputs to premake-core/bin which is ../../bin). Perhaps we should check for this
 		-- and hoist the ignore to either the workspace or the project the output ends up under.
-		-- BUG: objdir, targetdir, buildtarget.directory aren't baked on prj (which is the 'default config')
-		-- BUG: targetdir isn't baked on cfg. Only present if user-specified
 		m.optionTable('files.exclude')
-
-			--p.w('"%s": true,', path.getrelative(prj.basedir, cfg.buildtarget.directory))
 		for cfg in project.eachconfig(prj) do
 			if cfg.targetdir then
 				p.w('"%s": true,', path.getrelative(prj.basedir, cfg.targetdir))
@@ -184,7 +177,6 @@
 				p.w('"%s": true,', path.getrelative(prj.basedir, path.join(cfg.location, 'bin')))
 			end
 
-			--p.w('"%s": true,', path.getrelative(prj.basedir, path.join(prj.location, cfg.objdir)))
 			if prj.objdir then
 				p.w('"%s": true,', path.getrelative(prj.basedir, prj.objdir))
 			else
