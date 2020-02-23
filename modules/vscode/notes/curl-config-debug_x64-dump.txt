@@ -1,0 +1,19 @@
+platform: x64
+longname: Debug|x64
+basedir: D:/Dev/Third Party/premake-core/contrib/curl
+filename: curl-lib
+name: Debug|x64
+objdir: D:/Dev/Third Party/premake-core/build/obj/x64/Debug/curl-lib
+buildcfg: Debug
+action: vscode
+targetextension: .lib
+targetprefix: 
+_basedir: D:/Dev/Third Party/premake-core/build
+system: windows
+nugetsource: https://api.nuget.org/v3/index.json
+shortname: debug_x64
+location: D:/Dev/Third Party/premake-core/build
+uuid: BF552F19-AB22-8A24-D43B-78CCC067BFB2
+kind: StaticLib
+language: C
+architecture: x86_64

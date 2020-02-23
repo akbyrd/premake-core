@@ -1,0 +1,19 @@
+platform: x64
+longname: Release|x64
+basedir: D:/Dev/Third Party/premake-core/contrib/curl
+filename: curl-lib
+name: Release|x64
+objdir: D:/Dev/Third Party/premake-core/build/obj/x64/Release/curl-lib
+buildcfg: Release
+action: vscode
+targetextension: .lib
+targetprefix: 
+_basedir: D:/Dev/Third Party/premake-core/build
+system: windows
+nugetsource: https://api.nuget.org/v3/index.json
+shortname: release_x64
+location: D:/Dev/Third Party/premake-core/build
+uuid: BF552F19-AB22-8A24-D43B-78CCC067BFB2
+kind: StaticLib
+language: C
+architecture: x86_64
