@@ -95,10 +95,14 @@
 				p.pop('],')
 			end
 
-			-- TODO: User extensibility
-			m.cppOption('forcedInclude', 'null')
+			if #cfg.forceincludes > 0 then
+				m.cppOptionArray('forcedInclude')
+				for i = 1, #cfg.forceincludes do
+					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.forceincludes[i]))
+				end
+				p.pop('],')
+			end
 
-			-- TODO: Need system includes if we don't have compilerPath
 			if #cfg.includeDirs > 0 then
 				m.cppOptionArray('includePath')
 				for i = 1, #cfg.includeDirs do
@@ -136,6 +140,7 @@
 				p.pop('],')
 			end
 
+			-- TODO: Need system includes if we don't have compilerPath
 			m.cppOption('systemIncludePath', 'null')
 			m.cppOption('windowsSdkVersion', 'null')
 		end
