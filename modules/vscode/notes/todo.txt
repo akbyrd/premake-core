@@ -1,20 +1,33 @@
-[x] code-workspace paths
 [ ] Implement C/C++ support
-[ ]   Are built-in compiler defines handled by the browsing engine?
-[ ]   Extension suggestion
-[x]   .code-workspace
+[ ]   .code-workspace
+[x]     paths
+[x]     files.exclude
+[x]       --to directory
+[ ]     search.exclude
 [ ]   settings.json
+[x]     C_Cpp.default settings
+[x]     files.exclude
+[x]       Intermediate dirs
+[x]       Output dirs
 [ ]   c_cpp_properties.json
 [ ]   launch.json
 [ ]   tasks.json
 [ ]   Validate supported vscode-cpptools version
 [ ]   Consider using the existing exporters
+[ ]   Extension suggestion
+[ ]   Refactor
+[ ]     Write settings to a table hierarchy
+[ ]     Add table metadata: name, type (array or object)
+[ ]     Iterate table hierarchy to emit file (push, pop, comma handling)
+[ ]     Naming convention
+[ ]     Use call arrays
+[ ]     Use API values for comparisons (e.g. premake.X86_64)
+[ ]     Consider making mappings table based
+[ ] Option to choose configuration
+[ ] Option to specify secondary action
 [ ] Decide which languages to support
 [ ] Language support extensibility
-[ ] Test clean functionality
-[ ] Support --to
-[ ] Prepare to merge
-[ ]   Naming convention
-[ ]   Use call arrays
-[ ]   Consider making premake-vscode mappings table based
-[ ]   Use API values for comparisons (e.g. premake.X86_64)
+[ ] Polish
+[ ]   Test clean functionality
+[x]   Support --to
+[ ]   Address all TODOs

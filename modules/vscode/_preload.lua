@@ -11,10 +11,6 @@
 	local p = premake
 
 	m._VERSION = p._VERSION
-	m.workspaceExt = ".code-workspace"
-	m.projectName = "settings"
-	m.projectExt = ".json"
-	m.projectFilename = m.projectName .. m.projectExt
 
 	newaction {
 		trigger     = "vscode",
@@ -22,11 +18,14 @@
 		description = "Generate Visual Studio Code workspace files",
 
 		onWorkspace = function(wks)
-			p.generate(wks, m.workspaceExt, m.generateWorkspace)
+			p.generate(wks, ".code-workspace", m.generateWorkspace)
 		end,
 
 		onProject = function(prj)
-			p.generate(prj, m.projectFilename, m.generateProject)
+			-- NOTE: vscode projects have a fixed name and location that cannot be changed
+			prj.location = path.join(prj.basedir, '.vscode')
+			prj.filename = "settings"
+			p.generate(prj, ".json", m.generateProject)
 		end,
 	}
 

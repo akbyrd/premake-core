@@ -9,22 +9,7 @@
 	local tree = premake.tree
 	local project = premake.project
 
-	function m.workspacePath(wks)
-		return premake.filename(wks, m.workspaceExt)
-	end
-
-	function m.projectPath(prj)
-		return premake.filename(prj, m.projectFilename)
-	end
-
-	function m.projectScriptDir(prj)
-		return prj.basedir
-	end
-
 	-- TODO: Why don't project and workspace.getrelative work?
-	function m.relativePath(from, to)
-		return path.getrelative(path.getdirectory(from), to)
-	end
 
 	function m.cppOption(key, value)
 		p.w(string.format('"C_Cpp.default.%s": %s,', key, value))
@@ -34,31 +19,58 @@
 		p.push(string.format('"C_Cpp.default.%s": [', key))
 	end
 
+	function m.option(key, value)
+		p.w(string.format('"%s": %s,', key, value))
+	end
+
+	function m.optionArray(key)
+		p.push(string.format('"%s": [', key))
+	end
+
+	function m.optionTable(key)
+		p.push(string.format('"%s": {', key))
+	end
+
 	function m.generateWorkspace(wks)
 		p.push('{')
+
 		p.push('"folders": [')
 		local tr = p.workspace.grouptree(wks)
 		tree.traverse(tr, {
 			onleaf = function(n)
 				local prj = n.project
-				local path = m.relativePath(m.workspacePath(wks), m.projectScriptDir(prj))
+				local path = path.getrelative(wks.location, prj.basedir)
 				p.w('{ "path": "%s" },', path)
 			end,
 		})
-		p.pop(']')
+		p.pop('],')
+		p.outln('')
+
+		-- TODO: The same files.exlude problem exists here as below. Likely need to migrate the
+		-- exclude settings to any project they happen to be under.
+		m.optionTable('settings')
+		m.optionTable('files.exclude')
+			local scriptDir = path.getdirectory(wks.script)
+			print('wks.location', wks.location)
+			print('scriptDir', scriptDir)
+			if wks.location ~= scriptDir then
+				p.w('"%s": true,', '.')
+			end
+		p.pop('},')
+		p.pop('},')
+
 		p.pop('}')
-		p.w('')
+		p.outln('')
 	end
 
 	-- TODO: Deal with trailing commas (write to table, sort, then join)
 	function m.generateProject(prj)
+		-- TODO: Does vscode suport multiple configurations outside of tasks?
+		-- TODO: If not, add a way to choose the configuration
+		local cfg = project.getconfig(prj)
+
 		p.push('{')
 		if project.isc(prj) or project.iscpp(prj) then
-
-			-- TODO: Does vscode suport multiple configurations outside of tasks?
-			-- TODO: If not, add a way to choose the configuration
-			local cfg = project.getfirstconfig(prj)
-
 			m.cppOption('compileCommands',   'null')
 
 			-- TODO: compilerArgs
@@ -98,7 +110,7 @@
 			if #cfg.forceincludes > 0 then
 				m.cppOptionArray('forcedInclude')
 				for i = 1, #cfg.forceincludes do
-					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.forceincludes[i]))
+					p.w('"%s",', path.getrelative(prj.basedir, cfg.forceincludes[i]))
 				end
 				p.pop('],')
 			end
@@ -106,7 +118,7 @@
 			if #cfg.includeDirs > 0 then
 				m.cppOptionArray('includePath')
 				for i = 1, #cfg.includeDirs do
-					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.includeDirs[i]))
+					p.w('"%s",', path.getrelative(prj.basedir, cfg.includeDirs[i]))
 				end
 				p.pop('],')
 			end
@@ -135,7 +147,7 @@
 			if #cfg.frameworkdirs > 0 then
 				m.cppOptionArray('macFrameworkPath')
 				for i = 1, #cfg.frameworkdirs do
-					p.w('"%s",', m.relativePath(m.projectPath(prj), cfg.frameworkdirs[i]))
+					p.w('"%s",', path.getrelative(prj.basedir, cfg.frameworkdirs[i]))
 				end
 				p.pop('],')
 			end
@@ -154,9 +166,35 @@
 			if minsystemversion then
 				m.cppOption('windowsSdkVersion', string.format('"%s"', minsystemversion))
 			end
+			p.outln('')
 		end
+
+		-- TODO: files.exclude doesn't work when a project outputs to a folder outside of itself (e.g.
+		-- luasocket outputs to premake-core/bin which is ../../bin). Perhaps we should check for this
+		-- and hoist the ignore to either the workspace or the project the output ends up under.
+		-- BUG: objdir, targetdir, buildtarget.directory aren't baked on prj (which is the 'default config')
+		-- BUG: targetdir isn't baked on cfg. Only present if user-specified
+		m.optionTable('files.exclude')
+
+			--p.w('"%s": true,', path.getrelative(prj.basedir, cfg.buildtarget.directory))
+		for cfg in project.eachconfig(prj) do
+			if cfg.targetdir then
+				p.w('"%s": true,', path.getrelative(prj.basedir, cfg.targetdir))
+			else
+				p.w('"%s": true,', path.getrelative(prj.basedir, path.join(cfg.location, 'bin')))
+			end
+
+			--p.w('"%s": true,', path.getrelative(prj.basedir, path.join(prj.location, cfg.objdir)))
+			if prj.objdir then
+				p.w('"%s": true,', path.getrelative(prj.basedir, prj.objdir))
+			else
+				p.w('"%s": true,', path.getrelative(prj.basedir, path.join(cfg.location, 'obj')))
+			end
+		end
+		p.pop('},')
+
 		p.pop('}')
-		p.w('')
+		p.outln('')
 	end
 
 	return m
