@@ -4,7 +4,7 @@
 [x]     files.exclude
 [x]       --to directory
 [x]   settings.json
-[ ]     C_Cpp.default settings
+[x]     C_Cpp.default settings
 [x]     files.exclude
 [x]       Intermediate dirs
 [x]       Output dirs

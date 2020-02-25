@@ -68,16 +68,26 @@
 
 		p.push('{')
 		if project.isc(prj) or project.iscpp(prj) then
-			m.cppOption('compileCommands',   'null')
+			-- TODO: This approach doesn't support per-file options. Perhaps compileCommands is better
+			-- for that reason?
+			m.cppOptionArray('compilerArgs')
+			-- TODO: This default should come from a secondary action option
+			local toolset = p.tools[cfg.toolset or 'msc']
+			local cppflags = toolset.getcppflags(cfg)
+			for i = 1, #cppflags do
+				p.w('"%s",', cppflags[i])
+			end
+			local cflags = toolset.getcflags(cfg)
+			for i = 1, #cflags do
+				p.w('"%s",', cflags[i])
+			end
+			for i = 1, #cfg.buildoptions do
+				p.w('"%s",', cfg.buildoptions[i])
+			end
+			p.pop('],')
 
-			-- TODO: compilerArgs
-			-- I guess everything going to the compiler?
-			-- All compiler options not in file specific filters
-			-- Relevant premake API: flags, warnings, optimize, ...
-			--   First configuration, platform?
-			m.cppOption('compilerArgs',      'null')
-
-			m.cppOption('compilerPath',      'null')
+			-- TODO: I don't think premake knows this
+			--m.cppOption('compilerPath', 'null')
 
 			if     cfg.cppdialect == nil     then -- Emit nothing
 			elseif cfg.cppdialect == 'C++98' then m.cppOption('cppStandard', 'c++98')
