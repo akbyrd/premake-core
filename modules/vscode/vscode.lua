@@ -57,6 +57,21 @@
 		p.pop('},')
 		p.pop('},')
 
+		m.optionTable('extensions')
+		m.optionArray('recommendations')
+		local tr = p.workspace.grouptree(wks)
+		p.w('"keyring.lua",')
+		tree.traverse(tr, {
+			onleaf = function(n)
+				local prj = n.project
+				if project.isc(prj) or project.iscpp(prj) then
+					p.w('"ms-vscode.cpptools",')
+				end
+			end,
+		})
+		p.pop('],')
+		p.pop('},')
+
 		p.pop('}')
 		p.outln('')
 	end

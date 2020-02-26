@@ -3,6 +3,7 @@
 [x]     paths
 [x]     files.exclude
 [x]       --to directory
+[x]     Extension suggestion
 [x]   settings.json
 [x]     C_Cpp.default settings
 [x]     files.exclude
@@ -11,7 +12,6 @@
 [ ]   launch.json
 [ ]   tasks.json
 [ ]   Validate supported vscode-cpptools version
-[ ]   Extension suggestion
 [ ]   Refactor
 [ ]     Consider using the existing exporters
 [ ]     Write settings to a table hierarchy
@@ -26,6 +26,7 @@
 [ ]     settings.json
 [ ]     tasks.json
 [ ]     launch.json
+[ ]     Extension suggestions
 [ ] Option to choose configuration
 [ ] Option to specify secondary action
 [ ] Decide which languages to support
