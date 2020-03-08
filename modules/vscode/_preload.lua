@@ -6,8 +6,10 @@
 --
 
 	premake.modules.vscode = {};
-	local m = premake.modules.vscode
+	premake.modules.vscode.build = {};
+	premake.modules.vscode.emit = {};
 
+	local m = premake.modules.vscode
 	local p = premake
 
 	m._VERSION = p._VERSION
