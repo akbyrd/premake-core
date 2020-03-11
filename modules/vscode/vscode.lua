@@ -11,10 +11,6 @@
 	local tree = premake.tree
 	local project = premake.project
 
-	-- TODO: Why don't project and workspace.getrelative work?
-	-- TODO: Skip empty tables?
-	-- TODO: De-duplicate objects and arrays
-
 --
 -- Various functions for gathering and building the data that
 -- will later be emitted to vscode project files
@@ -41,6 +37,7 @@
 			primitive.sortKey = sortKey
 			table.insert(ctx.t.values, primitive)
 		end
+		return ctx.t.values[sortKey]
 	end
 
 	function build.pushObject(ctx, key)
@@ -76,6 +73,12 @@
 --
 
 	local indentLevel = 0
+
+	function emit.jsonEscaper(str)
+		str = string.gsub(str, '\\', '\\\\')
+		str = string.gsub(str, '"', '\\"')
+		return str
+	end
 
 	function emit.text(ctx, ...)
 		p.out(string.format(...))
@@ -143,7 +146,7 @@
 		if type(ctx.t.value) == 'nil' then
 			emit.text(ctx, 'null')
 		elseif type(ctx.t.value) == 'string' then
-			emit.text(ctx, '"%s"', ctx.t.value)
+			emit.text(ctx, '"%s"', p.esc(ctx.t.value))
 		else
 			emit.text(ctx, '%s', ctx.t.value)
 		end
@@ -218,7 +221,7 @@
 	function m.generateWorkspace(wks)
 		local ctx = {}
 		local t = build.root(ctx)
-		t.sort = false
+		ctx.t.sort = false
 
 		build.pushArray(ctx, 'folders')
 		local tr = p.workspace.grouptree(wks)
@@ -226,11 +229,12 @@
 			onleaf = function(n)
 				local prj = n.project
 				local path = path.getrelative(wks.location, prj.basedir)
-				local o = build.pushObject(ctx, nil)
-				o.sortKey = path
-				o.singleLine = true
+				build.pushObject(ctx, nil)
+				ctx.t.sort = false
+				ctx.t.sortKey = path
+				ctx.t.singleLine = true
 				build.primitive(ctx, 'path', path)
-				--build.primitive(ctx, 'name', name)
+				build.primitive(ctx, 'name', prj.name)
 				build.pop(ctx)
 			end,
 		})
@@ -272,7 +276,7 @@
 
 		local ctx = {}
 		local t = build.root(ctx)
-		t.sort = false
+		ctx.t.sort = false
 
 		if project.isc(prj) or project.iscpp(prj) then
 			-- TODO: This approach doesn't support per-file options. Perhaps compileCommands is better
@@ -389,20 +393,89 @@
 		-- TODO: files.exclude doesn't work when a project outputs to a folder outside of itself (e.g.
 		-- luasocket outputs to premake-core/bin which is ../../bin). Perhaps we should check for this
 		-- and hoist the ignore to either the workspace or the project the output ends up under.
+		-- TODO: Why do we have to consider the default here? Does baking not handle this?
 		build.pushObject(ctx, 'files.exclude')
 		for cfg in project.eachconfig(prj) do
-			if cfg.targetdir then
-				build.primitive(ctx, path.getrelative(prj.basedir, cfg.targetdir), true)
-			else
-				build.primitive(ctx, path.getrelative(prj.basedir, path.join(cfg.location, 'bin')), true)
-			end
+			local targetDir = cfg.targetdir or path.join(cfg.location, 'bin')
+			build.primitive(ctx, path.getrelative(prj.basedir, targetDir), true)
 
-			if prj.objdir then
-				build.primitive(ctx, path.getrelative(prj.basedir, prj.objdir), true)
-			else
-				build.primitive(ctx, path.getrelative(prj.basedir, path.join(cfg.location, 'obj')), true)
+			local objDir = prj.objdir or path.join(cfg.location, 'obj')
+			build.primitive(ctx, path.getrelative(prj.basedir, objDir), true)
+		end
+		build.pop(ctx)
+
+		emit.table(t)
+	end
+
+	function m.generateLaunch(prj)
+		local ctx = {}
+		local t = build.root(ctx)
+		ctx.t.sort = false
+
+		-- TODO: Don't emit if empty
+		build.primitive(ctx, 'version', '0.2.0')
+		build.pushArray(ctx, 'configurations')
+		ctx.t.sort = false
+
+		-- TODO: vscode only supports these platforms. Can we check this at a higher level?
+		if cfg.system == p.WINDOWS or cfg.system == p.LINUX or cfg.system == p.MACOSX then
+			if project.isc(prj) or project.iscpp(prj) then
+				for cfg in project.eachconfig(prj) do
+					-- HACK: Skip anything that doesn't have an application to run.
+					if cfg.debugcommand or prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
+						build.pushObject(ctx, nil)
+						ctx.t.sort = false
+
+						build.primitive(ctx, 'name', string.format('Launch %s (%s)', prj.name, cfg.name))
+
+						local type = cfg.system == p.WINDOWS and 'cppvsdbg' or 'cppdbg'
+						build.primitive(ctx, 'type', type)
+
+						build.primitive(ctx, 'request', 'launch')
+
+						local cwd = path.getrelative(prj.baseDir, cfg.debugdir or '.')
+						build.primitive(ctx, 'cwd', path.join(string.format('${workspaceFolder:%s}', prj.name), cwd))
+
+						if cfg.debugcommand then
+							build.primitive(ctx, 'program', cfg.debugcommand)
+						elseif prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
+							local cwdFull = path.join(prj.baseDir, cwd)
+							build.primitive(ctx, 'program', path.getrelative(cwdFull, cfg.buildtarget.fullpath))
+						end
+
+						if #cfg.debugargs > 0 then
+							build.pushArray(ctx, 'args')
+							for i = 1, #cfg.debugargs do
+								build.primitive(ctx, nil, cfg.debugargs[i])
+							end
+							build.pop(ctx)
+						end
+
+						if #cfg.debugenvs > 0 then
+							build.pushArray(ctx, 'environment')
+							ctx.t.sort = false
+							for i = 1, #cfg.debugenvs do
+								local var, value = table.unpack(string.explode(cfg.debugenvs[i], '=', true, 2))
+								build.pushObject(ctx, nil)
+								ctx.t.singleLine = true
+								build.primitive(ctx, var, value)
+								build.pop(ctx)
+							end
+							build.pop(ctx)
+						end
+
+						-- TODO: Extensibility
+						--build.primitive(ctx, 'stopAtEntry', false)
+						--build.primitive(ctx, 'externalConsole', false)
+						--logging
+						--visualizerFile
+
+						build.pop(ctx)
+					end
+				end
 			end
 		end
+
 		build.pop(ctx)
 
 		emit.table(t)

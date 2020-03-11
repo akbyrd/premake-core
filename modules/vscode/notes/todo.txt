@@ -4,22 +4,26 @@
 [x]     files.exclude
 [x]       --to directory
 [x]     Extension suggestion
+[ ]   Flattened project hierarchy in workspace
 [x]   settings.json
 [x]     C_Cpp.default settings
 [x]     files.exclude
 [x]       Intermediate dirs
 [x]       Output dirs
-[ ]   launch.json
+[x]   launch.json
 [ ]   tasks.json
+[ ]     Premake
+[ ]     Build
+[ ]     Clean?
 [ ]   Validate supported vscode-cpptools version
 [ ]   Refactor
-[ ]     Consider using the existing exporters
-[ ]     Write settings to a table hierarchy
-[ ]     Add table metadata: name, type (array or object)
-[ ]     Iterate table hierarchy to emit file (push, pop, comma handling)
+[x]     Write settings to a table hierarchy
+[x]     Add table metadata: name, type (array or object)
+[x]     Iterate table hierarchy to emit file (push, pop, comma handling)
+[x]     Consider using the existing exporters
+[X]     Use API values for comparisons (e.g. premake.X86_64)
+[ ]     Skip empty tables? (tricky because it needs to be resolved recursively. maybe a culling step?)
 [ ]     Naming convention
-[ ]     Use call arrays
-[ ]     Use API values for comparisons (e.g. premake.X86_64)
 [ ]     Consider making mappings table based
 [ ]   Extensibility
 [ ]     code-workspace
@@ -32,6 +36,7 @@
 [ ] Decide which languages to support
 [ ] Language support extensibility
 [ ] Polish
-[ ]   Test clean functionality
 [x]   Support --to
+[ ]   Test clean functionality
 [ ]   Address all TODOs
+[ ]   Use call arrays

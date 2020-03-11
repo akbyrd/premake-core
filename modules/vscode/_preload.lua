@@ -19,6 +19,10 @@
 		shortname   = "Visual Studio Code",
 		description = "Generate Visual Studio Code workspace files",
 
+		onStart = function()
+			p.escaper(m.emit.jsonEscaper)
+		end,
+
 		onWorkspace = function(wks)
 			p.generate(wks, ".code-workspace", m.generateWorkspace)
 		end,
@@ -27,7 +31,9 @@
 			-- NOTE: vscode projects have a fixed name and location that cannot be changed
 			prj.location = path.join(prj.basedir, '.vscode')
 			prj.filename = "settings"
+
 			p.generate(prj, ".json", m.generateProject)
+			p.generate(prj, "launch.json", m.generateLaunch)
 		end,
 	}
 
