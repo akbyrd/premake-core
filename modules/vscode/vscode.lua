@@ -283,7 +283,7 @@
 			-- for that reason?
 			build.pushArray(ctx, 'C_Cpp.default.compilerArgs')
 			-- TODO: This default should come from a secondary action option
-			local toolset = p.tools[cfg.toolset or 'msc']
+			local toolset = p.tools[cfg.toolset or p.MSC]
 			local cppflags = toolset.getcppflags(cfg)
 			for i = 1, #cppflags do
 				build.primitive(ctx, nil, cppflags[i])
@@ -347,17 +347,17 @@
 
 		local vtoolset
 		if     cfg.toolset == nil     then -- Emit nothing
-		elseif cfg.toolset:startswith('clang') then vtoolset = 'clang'
-		elseif cfg.toolset:startswith('gcc')   then vtoolset = 'gcc'
-		elseif cfg.toolset:startswith('msc')   then vtoolset = 'msvc'
+		elseif cfg.toolset:startswith(p.CLANG) then vtoolset = 'clang'
+		elseif cfg.toolset:startswith(p.GCC)   then vtoolset = 'gcc'
+		elseif cfg.toolset:startswith(p.MSC)   then vtoolset = 'msvc'
 		else
 			p.warn('Unhandled toolset: %s', cfg.toolset)
 		end
 
 		local varchitecture
 		if     cfg.architecture == nil      then -- Emit nothing
-		elseif cfg.architecture == 'x86'    then varchitecture = 'x86'
-		elseif cfg.architecture == 'x86_64' then varchitecture = 'x64'
+		elseif cfg.architecture == p.X86    then varchitecture = 'x86'
+		elseif cfg.architecture == p.X86_64 then varchitecture = 'x64'
 		else
 			p.warn('Unhandled architecture: %s', cfg.architecture)
 		end
@@ -412,65 +412,59 @@
 		local t = build.root(ctx)
 		ctx.t.sort = false
 
-		-- TODO: Don't emit if empty
 		build.primitive(ctx, 'version', '0.2.0')
 		build.pushArray(ctx, 'configurations')
 		ctx.t.sort = false
 
-		-- TODO: vscode only supports these platforms. Can we check this at a higher level?
-		if cfg.system == p.WINDOWS or cfg.system == p.LINUX or cfg.system == p.MACOSX then
-			if project.isc(prj) or project.iscpp(prj) then
-				for cfg in project.eachconfig(prj) do
-					-- HACK: Skip anything that doesn't have an application to run.
-					if cfg.debugcommand or prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
-						build.pushObject(ctx, nil)
-						ctx.t.sort = false
-
-						build.primitive(ctx, 'name', string.format('Launch %s (%s)', prj.name, cfg.name))
-
-						local type = cfg.system == p.WINDOWS and 'cppvsdbg' or 'cppdbg'
-						build.primitive(ctx, 'type', type)
-
-						build.primitive(ctx, 'request', 'launch')
-
-						local cwd = path.getrelative(prj.baseDir, cfg.debugdir or '.')
-						build.primitive(ctx, 'cwd', path.join(string.format('${workspaceFolder:%s}', prj.name), cwd))
-
-						if cfg.debugcommand then
-							build.primitive(ctx, 'program', cfg.debugcommand)
-						elseif prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
-							local cwdFull = path.join(prj.baseDir, cwd)
-							build.primitive(ctx, 'program', path.getrelative(cwdFull, cfg.buildtarget.fullpath))
-						end
-
-						if #cfg.debugargs > 0 then
-							build.pushArray(ctx, 'args')
-							for i = 1, #cfg.debugargs do
-								build.primitive(ctx, nil, cfg.debugargs[i])
-							end
-							build.pop(ctx)
-						end
-
-						if #cfg.debugenvs > 0 then
-							build.pushArray(ctx, 'environment')
+		if cfg.toolset:startswith(p.CLANG) or cfg.toolset:startswith(p.GCC) or cfg.toolset:startswith(p.MSC) then
+			if cfg.system == p.WINDOWS or cfg.system == p.LINUX or cfg.system == p.MACOSX then
+				if project.isc(prj) or project.iscpp(prj) then
+					for cfg in project.eachconfig(prj) do
+						-- HACK: Skip anything that doesn't have an application to run.
+						if cfg.debugcommand or prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
+							build.pushObject(ctx, nil)
 							ctx.t.sort = false
-							for i = 1, #cfg.debugenvs do
-								local var, value = table.unpack(string.explode(cfg.debugenvs[i], '=', true, 2))
-								build.pushObject(ctx, nil)
-								ctx.t.singleLine = true
-								build.primitive(ctx, var, value)
+
+							build.primitive(ctx, 'name', string.format('Launch %s (%s)', prj.name, cfg.name))
+
+							local type = cfg.system == p.WINDOWS and 'cppvsdbg' or 'cppdbg'
+							build.primitive(ctx, 'type', type)
+
+							build.primitive(ctx, 'request', 'launch')
+
+							local cwd = path.getrelative(prj.baseDir, cfg.debugdir or '.')
+							build.primitive(ctx, 'cwd', path.join(string.format('${workspaceFolder:%s}', prj.name), cwd))
+
+							if cfg.debugcommand then
+								build.primitive(ctx, 'program', cfg.debugcommand)
+							elseif prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
+								local cwdFull = path.join(prj.baseDir, cwd)
+								build.primitive(ctx, 'program', path.getrelative(cwdFull, cfg.buildtarget.fullpath))
+							end
+
+							if #cfg.debugargs > 0 then
+								build.pushArray(ctx, 'args')
+								for i = 1, #cfg.debugargs do
+									build.primitive(ctx, nil, cfg.debugargs[i])
+								end
 								build.pop(ctx)
 							end
+
+							if #cfg.debugenvs > 0 then
+								build.pushArray(ctx, 'environment')
+								ctx.t.sort = false
+								for i = 1, #cfg.debugenvs do
+									local var, value = table.unpack(string.explode(cfg.debugenvs[i], '=', true, 2))
+									build.pushObject(ctx, nil)
+									ctx.t.singleLine = true
+									build.primitive(ctx, var, value)
+									build.pop(ctx)
+								end
+								build.pop(ctx)
+							end
+
 							build.pop(ctx)
 						end
-
-						-- TODO: Extensibility
-						--build.primitive(ctx, 'stopAtEntry', false)
-						--build.primitive(ctx, 'externalConsole', false)
-						--logging
-						--visualizerFile
-
-						build.pop(ctx)
 					end
 				end
 			end

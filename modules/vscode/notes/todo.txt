@@ -21,16 +21,18 @@
 [x]     Add table metadata: name, type (array or object)
 [x]     Iterate table hierarchy to emit file (push, pop, comma handling)
 [x]     Consider using the existing exporters
-[X]     Use API values for comparisons (e.g. premake.X86_64)
-[ ]     Skip empty tables? (tricky because it needs to be resolved recursively. maybe a culling step?)
+[x]     Use API values for comparisons (e.g. premake.X86_64)
+[ ]     Build normal lua tables with a metatable
+[ ]     Skip empty tables (tricky because it needs to be resolved recursively)
+[ ]       Culling step? Depth first traversal. Optional filter function on metatables.
 [ ]     Naming convention
 [ ]     Consider making mappings table based
 [ ]   Extensibility
-[ ]     code-workspace
+[ ]     By merging normal lua tables?
+[ ]     .code-workspace
 [ ]     settings.json
 [ ]     tasks.json
 [ ]     launch.json
-[ ]     Extension suggestions
 [ ] Option to choose configuration
 [ ] Option to specify secondary action
 [ ] Decide which languages to support

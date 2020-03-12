@@ -40,6 +40,7 @@
 	premake.MACOSX      = "macosx"
 	premake.MAKEFILE    = "Makefile"
 	premake.MBCS        = "MBCS"
+	premake.MSC         = "msc"
 	premake.NONE        = "None"
 	premake.DEFAULT     = "Default"
 	premake.ON          = "On"
