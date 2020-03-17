@@ -223,7 +223,7 @@
 		local t = build.root(ctx)
 		ctx.t.sort = false
 
-		build.pushArray(ctx, 'folders')
+		local folders = build.pushArray(ctx, 'folders')
 		local tr = p.workspace.grouptree(wks)
 		tree.traverse(tr, {
 			onleaf = function(n)
@@ -263,6 +263,34 @@
 				end
 			end,
 		})
+		build.pop(ctx)
+		build.pop(ctx)
+
+		build.pushObject(ctx, 'tasks')
+		ctx.t.sort = false
+		build.primitive(ctx, 'version', '2.0.0')
+		build.pushArray(ctx, 'tasks')
+		build.pushObject(ctx, nil)
+		ctx.t.sort = false
+		build.primitive(ctx, 'label', 'premake')
+		build.primitive(ctx, 'group', 'build')
+		build.primitive(ctx, 'type', 'shell')
+		-- HACK: The workspace task directory is the first folder
+		table.sort(folders.values, function(a, b)
+			return a.sortKey < b.sortKey
+		end)
+		local firstPrj = path.join(wks.location, folders.values[1].values.path)
+		build.primitive(ctx, 'command', path.getrelative(firstPrj, _PREMAKE_COMMAND))
+		build.pushArray(ctx, 'args')
+		ctx.t.sort = false
+		for k, v in pairs(_OPTIONS) do
+			build.primitive(ctx, nil, string.format('--%s=%s', k, v))
+		end
+		build.primitive(ctx, nil, _ACTION)
+		build.pop(ctx)
+		build.pushArray(ctx, 'problemMatcher')
+		build.pop(ctx)
+		build.pop(ctx)
 		build.pop(ctx)
 		build.pop(ctx)
 

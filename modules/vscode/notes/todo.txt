@@ -4,7 +4,7 @@
 [x]     files.exclude
 [x]       --to directory
 [x]     Extension suggestion
-[ ]   Flattened project hierarchy in workspace
+[ ]   Flattened project hierarchy in workspace (or use workspace.eachproject)
 [x]   settings.json
 [x]     C_Cpp.default settings
 [x]     files.exclude
@@ -12,7 +12,7 @@
 [x]       Output dirs
 [x]   launch.json
 [ ]   tasks.json
-[ ]     Premake
+[x]     Premake
 [ ]     Build
 [ ]     Clean?
 [ ]   Validate supported vscode-cpptools version
@@ -27,6 +27,7 @@
 [ ]       Culling step? Depth first traversal. Optional filter function on metatables.
 [ ]     Naming convention
 [ ]     Consider making mappings table based
+[ ]     Change sort default to false
 [ ]   Extensibility
 [ ]     By merging normal lua tables?
 [ ]     .code-workspace
