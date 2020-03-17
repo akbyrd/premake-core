@@ -446,10 +446,10 @@
 		build.pushArray(ctx, 'configurations')
 		ctx.t.sort = false
 
-		if cfg.toolset:startswith(p.CLANG) or cfg.toolset:startswith(p.GCC) or cfg.toolset:startswith(p.MSC) then
-			if cfg.system == p.WINDOWS or cfg.system == p.LINUX or cfg.system == p.MACOSX then
-				if project.isc(prj) or project.iscpp(prj) then
-					for cfg in project.eachconfig(prj) do
+		if project.isc(prj) or project.iscpp(prj) then
+			for cfg in project.eachconfig(prj) do
+				--if cfg.toolset:startswith(p.CLANG) or cfg.toolset:startswith(p.GCC) or cfg.toolset:startswith(p.MSC) then
+					if cfg.system == p.WINDOWS or cfg.system == p.LINUX or cfg.system == p.MACOSX then
 						-- HACK: Skip anything that doesn't have an application to run.
 						if cfg.debugcommand or prj.kind == p.CONSOLEAPP or prj.kind == p.WINDOWEDAPP then
 							build.pushObject(ctx, nil)
@@ -495,7 +495,7 @@
 
 							build.pop(ctx)
 						end
-					end
+					--end
 				end
 			end
 		end
