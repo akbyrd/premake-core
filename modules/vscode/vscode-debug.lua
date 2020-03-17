@@ -1,9 +1,6 @@
 premake.modules.vscode.debug = {};
 local d = premake.modules.vscode.debug
 
--- TODO: This isn't being loaded
-print('vscode-debug loaded')
-
 function table.print(t, recurse, depth, visited)
 	local depth = depth or 0
 	local indent = string.rep("  ", depth) -- TODO: Use tab
@@ -13,7 +10,7 @@ function table.print(t, recurse, depth, visited)
 
 	local next = next
 	for k, v in pairs(t) do
-		if type(v) ~= "table" then
+		if type(v) ~= "table" or not recurse then
 			io.write(indent, tostring(k))
 			io.write(": ")
 			io.write(tostring(v))
@@ -37,7 +34,7 @@ function table.dump(t, recurse, filename)
 	local prevOutput = io.output()
 	local file = io.open(filename, 'w')
 	io.output(file)
-	table.print(t, recurse)
+	table.print(t or {}, recurse)
 	io.close(file)
 	io.output(prevOutput)
 end

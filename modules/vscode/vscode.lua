@@ -2,6 +2,8 @@
 -- vscode.lua
 --
 
+	include('vscode-debug.lua')
+
 	local m = premake.modules.vscode
 	local debug = premake.modules.vscode.debug
 	local build = premake.modules.vscode.build
